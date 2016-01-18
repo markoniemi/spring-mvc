@@ -5,16 +5,16 @@ import java.util.List;
 
 import javax.jws.WebService;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springmvc.User;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  * UserService should really persist to DB.
  */
 @Service
-@Slf4j
+@Log4j
 @WebService(endpointInterface = "org.springmvc.service.UserService", serviceName = "userService")
 public class UserServiceImpl implements UserService {
     private List<User> users = new ArrayList<User>();

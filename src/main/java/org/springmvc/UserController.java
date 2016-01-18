@@ -1,6 +1,5 @@
 package org.springmvc;
 
-import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springmvc.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 
-@Slf4j
+@Log4j
 @Controller
 public class UserController {
     @Autowired
@@ -23,7 +22,7 @@ public class UserController {
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute UserForm userForm) {
         // TODO clean up, is this a good implementation?
-        log.debug("save() - userForm: {}", userForm);
+        log.debug("save() - userForm: " + userForm);
         User user = new User();
         if (userForm.getId() != null) {
             user.setId(userForm.getId());
@@ -31,7 +30,7 @@ public class UserController {
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
         user = userService.save(user);
-        log.debug("save() - saved user: {}", user);
+        log.debug("save() - saved user: " + user);
         return "redirect:/user/users";
     }
 //    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
@@ -56,7 +55,7 @@ public class UserController {
     public ModelAndView editUser(@PathVariable long id) {
         // TODO use userForm instead of user
         User user = userService.findById(id);
-        log.debug("editUser() - found user: {}", user);
+        log.debug("editUser() - found user: " + user);
         if (user == null) {
             user = new User();
         }

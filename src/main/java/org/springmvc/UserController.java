@@ -42,15 +42,16 @@ public class UserController {
 //        model.addObject("userForm", userForm);
 //        return model;
 //    }
-//    @RequestMapping(value = "/user/new", method = RequestMethod.GET)
-//    public ModelAndView newUser() {
+    @RequestMapping(value = "/user/new", method = RequestMethod.GET)
+    public ModelAndView newUser() {
+        return editUser(-1L);
 //        UserForm userForm = new UserForm();
 //        log.debug("newUser() - userForm: {}", userForm);
 //        ModelAndView model = new ModelAndView();
 //        model.setViewName("/user/user");
 //        model.addObject("userForm", userForm);
 //        return model;
-//    }
+    }
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable long id) {
         // TODO use userForm instead of user

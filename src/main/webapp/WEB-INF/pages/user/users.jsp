@@ -4,8 +4,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel='stylesheet'
+	href='/spring-mvc/webjars/bootstrap/3.3.6/css/bootstrap.min.css'></link>
 </head>
-<table>
+<body>
+	<script type="text/javascript"
+		src="/spring-mvc/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script> -->
+
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th><spring:message code="user.name"/></th>
@@ -23,7 +30,7 @@
 	</tbody>
 </table>
 <form:form action="/spring-mvc/user/new" method="GET">
-	<input type="submit" value="Add User" />
+	<input class="btn btn-primary" type="submit" value="Add User" />
 </form:form>
 </body>
 </html>

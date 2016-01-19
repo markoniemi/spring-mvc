@@ -1,12 +1,13 @@
 package org.springmvc.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jws.WebService;
 
 import org.springframework.stereotype.Service;
 import org.springmvc.User;
+import org.springmvc.repository.UserRepository;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,34 +18,35 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @WebService(endpointInterface = "org.springmvc.service.UserService", serviceName = "userService")
 public class UserServiceImpl implements UserService {
-    private List<User> users = new ArrayList<User>();
-    private static long id;
+    @Inject
+    private UserRepository userRepository;
+
 
     public List<User> findAll() {
-        log.info("findAll");
-        return users;
+        log.debug("findAll");
+        return userRepository.findAll();
     }
 
     public User save(User user) {
         if (user.getId() != null) {
-            User tempUser = findById(user.getId());
+        	//edit existing
+            User tempUser = userRepository.findOne(user.getId());
+            log.debug("found existing user: " + tempUser);
             tempUser.setName(user.getName());
             tempUser.setEmail(user.getEmail());
+            userRepository.save(tempUser);
+            
             return tempUser;
-        }else {
-            user.setId(id++);
-            users.add(user);
+        } else {
+        	//new user
+            userRepository.save(user);
+            
             return user;
         }
     }
 
     @Override
     public User findById(long id) {
-        for (User user : users) {
-            if (user.getId() == id) {
-                return user;
-            }
-        }
-        return null;
+        return userRepository.findOne(id);
     }
 }

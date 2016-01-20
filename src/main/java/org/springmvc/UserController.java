@@ -48,6 +48,7 @@ public class UserController {
         log.debug("editUser() - found user: " + user);
         if (user == null) {
             user = new User();
+            user.setAddress(new Address());
         }
         ModelAndView model = new ModelAndView();
         model.setViewName("/user/user");

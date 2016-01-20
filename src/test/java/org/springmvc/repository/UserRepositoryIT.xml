@@ -1,5 +1,7 @@
 <dataset>
+	<address id="1" streetAddress="streetAddress1"/>
+	
 	<user id="1" username="username1" name="name1" email="email1" role="user"/>
 	<user id="2" username="username2" name="name2" email="email2" role="admin"/>
-	<user id="3" username="username3" name="name3" email="email3" role="admin"/>
+	<user id="3" username="username3" name="name3" email="email3" role="admin" address_id="1"/>
 </dataset>

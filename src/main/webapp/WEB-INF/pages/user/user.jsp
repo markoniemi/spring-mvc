@@ -49,6 +49,15 @@
 
 				</div>
 			</div>
+			<!-- address -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="streetAddress"><spring:message code="address.streetAddress"/></label>
+				<div class="col-md-4">
+					<input id="streetAddress" name="address.streetAddress" type="text"
+						class="form-control input-md" value="${userForm.address.streetAddress}">
+
+				</div>
+			</div>
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for=""></label>

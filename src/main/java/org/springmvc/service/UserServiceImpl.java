@@ -11,9 +11,6 @@ import org.springmvc.repository.UserRepository;
 
 import lombok.extern.log4j.Log4j;
 
-/**
- * UserService should really persist to DB.
- */
 @Service
 @Log4j
 @WebService(endpointInterface = "org.springmvc.service.UserService", serviceName = "userService")

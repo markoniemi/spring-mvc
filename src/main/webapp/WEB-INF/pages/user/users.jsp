@@ -15,15 +15,19 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
+			<th><spring:message code="user.username"/></th>
 			<th><spring:message code="user.name"/></th>
 			<th><spring:message code="user.email"/></th>
+			<th><spring:message code="user.role"/></th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${users}" var="user" varStatus="status">
 			<tr>
+				<td>${user.username}</td>
 				<td>${user.name}</td>
 				<td>${user.email}</td>
+				<td>${user.role}</td>
 				<td><a href="/spring-mvc/user/${user.id}">Edit</a>
 			</tr>
 		</c:forEach>

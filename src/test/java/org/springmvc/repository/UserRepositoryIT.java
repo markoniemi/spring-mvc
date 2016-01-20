@@ -31,6 +31,22 @@ public class UserRepositoryIT {
     public void findAll() {
         List<User> users = userRepository.findAll();
         Assert.assertNotNull(users);
+        Assert.assertEquals(3, users.size());
+        Assert.assertEquals("name1", users.get(0).getName());
+        log.debug(users);
+    }
+    @Test
+    public void findByUsername() {
+        User user = userRepository.findByUsername("username2");
+        Assert.assertEquals("username2", user.getUsername());
+        log.debug(user);
+    }
+    @Test
+    public void findAdmins() {
+        List<User> users = userRepository.findAdmins();
+        Assert.assertNotNull(users);
+        Assert.assertEquals(2, users.size());
+        Assert.assertEquals("name2", users.get(0).getName());
         log.debug(users);
     }
 }

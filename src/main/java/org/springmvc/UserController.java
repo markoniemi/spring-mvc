@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     @Qualifier("userServiceBean")
     private UserService userService;
-    
+
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute UserForm userForm) {
         // TODO clean up, is this a good implementation?
@@ -27,30 +27,20 @@ public class UserController {
         if (userForm.getId() != null) {
             user.setId(userForm.getId());
         }
+        user.setUsername(userForm.getUsername());
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
+        user.setRole(userForm.getRole());
         user = userService.save(user);
         log.debug("save() - saved user: " + user);
         return "redirect:/user/users";
     }
-//    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-//    public ModelAndView updateUser(@ModelAttribute UserForm userForm) {
-//        log.debug("update() - userForm: {}", userForm);
-//        ModelAndView model = new ModelAndView();
-//        model.setViewName("/user/users");
-//        model.addObject("userForm", userForm);
-//        return model;
-//    }
+
     @RequestMapping(value = "/user/new", method = RequestMethod.GET)
     public ModelAndView newUser() {
         return editUser(-1L);
-//        UserForm userForm = new UserForm();
-//        log.debug("newUser() - userForm: {}", userForm);
-//        ModelAndView model = new ModelAndView();
-//        model.setViewName("/user/user");
-//        model.addObject("userForm", userForm);
-//        return model;
     }
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable long id) {
         // TODO use userForm instead of user

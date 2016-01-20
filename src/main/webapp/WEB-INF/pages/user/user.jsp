@@ -19,6 +19,13 @@
 <!-- 			<legend>User</legend> -->
 			<!-- Text input-->
 			<div class="form-group">
+				<label class="col-md-4 control-label" for="username"><spring:message code="user.username"/></label>
+				<div class="col-md-4">
+					<input id="username" name="username" type="text"
+						class="form-control input-md" value="${userForm.username}">
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-md-4 control-label" for="name"><spring:message code="user.name"/></label>
 				<div class="col-md-4">
 					<input id="name" name="name" type="text"
@@ -31,6 +38,14 @@
 				<div class="col-md-4">
 					<input id="email" name="email" type="text"
 						class="form-control input-md" value="${userForm.email}">
+
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="role"><spring:message code="user.role"/></label>
+				<div class="col-md-4">
+					<input id="role" name="role" type="text"
+						class="form-control input-md" value="${userForm.role}">
 
 				</div>
 			</div>

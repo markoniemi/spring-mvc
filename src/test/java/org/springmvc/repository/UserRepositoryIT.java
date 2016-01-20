@@ -8,11 +8,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.springmvc.Address;
 import org.springmvc.User;
 
@@ -23,8 +25,7 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-config-datasource-test.xml", inheritLocations = false)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("UserRepositoryIT.xml")
 @Log4j
 @Transactional
@@ -63,6 +64,8 @@ public class UserRepositoryIT {
 
 //    @Rollback(false)
     @Test
+    @Transactional
+    @Rollback(false)
     public void save() {
         User user = new User("name", "username", "admin", "email");
         Address address = new Address("streetAddress");

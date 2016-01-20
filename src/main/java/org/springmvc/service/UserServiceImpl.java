@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
     @Inject
     private UserRepository userRepository;
 
-
     public List<User> findAll() {
         log.debug("findAll");
         return userRepository.findAll();

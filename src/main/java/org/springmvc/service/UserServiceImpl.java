@@ -2,9 +2,9 @@ package org.springmvc.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.jws.WebService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springmvc.User;
 import org.springmvc.repository.UserRepository;
@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @WebService(endpointInterface = "org.springmvc.service.UserService", serviceName = "userService")
 public class UserServiceImpl implements UserService {
-    @Inject
+    @Autowired
     private UserRepository userRepository;
 
     public List<User> findAll() {

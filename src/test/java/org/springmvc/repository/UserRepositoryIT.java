@@ -2,6 +2,8 @@ package org.springmvc.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +27,12 @@ import lombok.extern.log4j.Log4j;
         DbUnitTestExecutionListener.class })
 @DatabaseSetup("UserRepositoryIT.xml")
 @Log4j
+@Transactional
 public class UserRepositoryIT {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Test
     public void findAll() {
@@ -56,16 +61,33 @@ public class UserRepositoryIT {
         log.debug(users);
     }
 
+//    @Rollback(false)
     @Test
     public void save() {
         User user = new User("name", "username", "admin", "email");
         Address address = new Address("streetAddress");
         user.setAddress(address);
         User savedUser = userRepository.save(user);
+        savedUser = userRepository.findOne(savedUser.getId());
         Assert.assertNotNull(savedUser);
         Assert.assertNotNull(savedUser.getId());
         Assert.assertNotNull(savedUser.getAddress());
         Assert.assertNotNull(savedUser.getAddress().getId());
         log.debug(savedUser);
+    }
+    
+//    @Rollback(false)
+    @Test
+    public void delete() {
+        User user = userRepository.findOne(1L);
+        userRepository.delete(user);
+        Assert.assertNull(userRepository.findOne(1L));
+        user = userRepository.findOne(3L);
+        Assert.assertNotNull(user.getAddress());
+        userRepository.delete(3L);
+        Assert.assertNull(userRepository.findOne(3L));
+        List<User> users = userRepository.findAll();
+        Assert.assertEquals(1, users.size());
+        Assert.assertEquals(0, addressRepository.findAll().size());
     }
 }

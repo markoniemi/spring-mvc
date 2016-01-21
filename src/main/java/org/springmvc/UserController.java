@@ -31,6 +31,7 @@ public class UserController {
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
         user.setRole(userForm.getRole());
+        user.setAddress(userForm.getAddress());
         user = userService.save(user);
         log.debug("save() - saved user: " + user);
         return "redirect:/user/users";

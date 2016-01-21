@@ -6,11 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * User Data Transfer Object. User class would normally contain JPA annotations

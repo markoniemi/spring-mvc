@@ -60,7 +60,7 @@ public class UserRepositoryIT {
 
     @Test
     @Transactional
-    @Rollback(true)
+    @Rollback(false)
     public void save() {
         User user = new User("name", "username", "admin", "email");
         Address address = new Address("streetAddress");

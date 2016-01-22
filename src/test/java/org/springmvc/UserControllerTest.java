@@ -13,11 +13,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+import org.springmvc.repository.UserRepository;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -35,6 +38,8 @@ public class UserControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
+    @Autowired
+    UserRepository userRepository;
 
     @Before
     public void setUp() {
@@ -43,11 +48,26 @@ public class UserControllerTest {
 
     @Test
     public void newUser() throws Exception {
-        ModelAndView modelAndView = mockMvc.perform(MockMvcRequestBuilders.get("/user/new"))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages//user/user.jsp")).andReturn().getModelAndView();
-        Assert.assertNotNull(modelAndView.getModel().get("userForm"));
-        modelAndView = mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .sessionAttr("user", new User()))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getModelAndView();
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/user/new");
+        ResultActions resultActions = mockMvc.perform(request);
+        
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        resultActions.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/user/user.jsp"));
+        ModelAndView modelAndView = resultActions.andReturn().getModelAndView();
+        User user = (User) modelAndView.getModel().get("userForm");
+        Assert.assertNotNull(user);
+
+        // fill user form
+        UserForm userForm = new UserForm();
+        userForm.setName("name");
+        userForm.setUsername("username");
+        userForm.setEmail("email");
+        request = MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .flashAttr("userForm", userForm);
+        resultActions = mockMvc.perform(request);
+        resultActions.andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+        resultActions.andExpect(MockMvcResultMatchers.redirectedUrl("/user/users"));
+        
+        userRepository.findByUsername("username");
     }
 }

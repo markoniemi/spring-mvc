@@ -52,8 +52,15 @@ public class UserController {
             user.setAddress(new Address());
         }
         ModelAndView model = new ModelAndView();
-        model.setViewName("/user/user");
+        model.setViewName("user/user");
         model.addObject("userForm", user);
         return model;
     }
+    
+    @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.POST)
+    public String deleteUser(@PathVariable long id) {
+        userService.delete(id);
+        return "redirect:/user/users";
+    }
+    
 }

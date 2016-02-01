@@ -55,10 +55,31 @@ public class UserControllerTest {
         Assert.assertNotNull(user);
 
         // fill user form
-        new User();
         user.setName("name");
         user.setUsername("username");
         user.setEmail("email");
+        user.getAddress().setStreetAddress("streetAddress");
+        request = MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .flashAttr("userForm", user);
+        resultActions = mockMvc.perform(request);
+        resultActions.andExpect(MockMvcResultMatchers.redirectedUrl("/user/users"));
+    }
+    @Test
+    public void editUser() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/user/3");
+        ResultActions resultActions = mockMvc.perform(request);
+        
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        resultActions.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/user/user.jsp"));
+        ModelAndView modelAndView = resultActions.andReturn().getModelAndView();
+        User user = (User) modelAndView.getModel().get("user");
+        Assert.assertNotNull(user);
+        
+        // edit user form
+        user.setName("new_name");
+        user.setUsername("new_username");
+        user.setEmail("new_email");
+        user.getAddress().setStreetAddress("new_streetAddress");
         request = MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .flashAttr("userForm", user);
         resultActions = mockMvc.perform(request);

@@ -62,7 +62,6 @@ public class UserControllerTest {
         request = MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .flashAttr("userForm", user);
         resultActions = mockMvc.perform(request);
-        resultActions.andExpect(MockMvcResultMatchers.status().is3xxRedirection());
         resultActions.andExpect(MockMvcResultMatchers.redirectedUrl("/user/users"));
     }
 }

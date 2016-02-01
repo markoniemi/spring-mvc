@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springmvc.repository.UserRepository;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -38,8 +37,6 @@ public class UserControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
-    @Autowired
-    UserRepository userRepository;
 
     @Before
     public void setUp() {
@@ -50,24 +47,22 @@ public class UserControllerTest {
     public void newUser() throws Exception {
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/user/new");
         ResultActions resultActions = mockMvc.perform(request);
-        
+
         resultActions.andExpect(MockMvcResultMatchers.status().isOk());
         resultActions.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/pages/user/user.jsp"));
         ModelAndView modelAndView = resultActions.andReturn().getModelAndView();
-        User user = (User) modelAndView.getModel().get("userForm");
+        User user = (User) modelAndView.getModel().get("user");
         Assert.assertNotNull(user);
 
         // fill user form
-        UserForm userForm = new UserForm();
-        userForm.setName("name");
-        userForm.setUsername("username");
-        userForm.setEmail("email");
+        new User();
+        user.setName("name");
+        user.setUsername("username");
+        user.setEmail("email");
         request = MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .flashAttr("userForm", userForm);
+                .flashAttr("userForm", user);
         resultActions = mockMvc.perform(request);
         resultActions.andExpect(MockMvcResultMatchers.status().is3xxRedirection());
         resultActions.andExpect(MockMvcResultMatchers.redirectedUrl("/user/users"));
-        
-        userRepository.findByUsername("username");
     }
 }

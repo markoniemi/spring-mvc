@@ -27,11 +27,8 @@
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename">
-			<value>ui-messages</value>
-		</property>
+		<property name="basename" value="ui-messages" /> 
 	</bean>
 
-	<import resource="spring-config-service.xml" />
 	<import resource="spring-config-datasource.xml" />
 </beans>

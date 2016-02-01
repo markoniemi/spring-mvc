@@ -33,6 +33,5 @@
 		</property>
 	</bean>
 
-	<import resource="classpath:spring-config-service-test.xml" />
 	<import resource="classpath:spring-config-datasource-test.xml" />
 </beans>

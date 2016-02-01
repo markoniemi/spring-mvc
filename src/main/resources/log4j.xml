@@ -23,6 +23,9 @@
 	<logger name="com.gargoylesoftware">
 		<level value="off" />
 	</logger>
+	<logger name="org.springframework">
+		<level value="info" />
+	</logger>
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

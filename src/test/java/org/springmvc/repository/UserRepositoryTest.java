@@ -25,9 +25,9 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration(locations = "classpath:spring-config-datasource-test.xml", inheritLocations = false)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("UserRepositoryIT.xml")
+@DatabaseSetup("UserRepositoryTest.xml")
 @Log4j
-public class UserRepositoryIT {
+public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 

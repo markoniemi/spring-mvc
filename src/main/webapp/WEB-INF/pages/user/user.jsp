@@ -12,8 +12,8 @@
 		src="/spring-mvc/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script> -->
 	<form:form class="form-horizontal" action="save"
-		modelAttribute="userForm" method="post">
-			<input name="id" type="hidden" value="${userForm.id}"/>
+		modelAttribute="user" method="post">
+			<input name="id" type="hidden" value="${user.id}"/>
 <!-- 		<fieldset> -->
 			<!-- Form Name -->
 <!-- 			<legend>User</legend> -->
@@ -22,14 +22,14 @@
 				<label class="col-md-4 control-label" for="username"><spring:message code="user.username"/></label>
 				<div class="col-md-4">
 					<input id="username" name="username" type="text"
-						class="form-control input-md" value="${userForm.username}">
+						class="form-control input-md" value="${user.username}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="name"><spring:message code="user.name"/></label>
 				<div class="col-md-4">
 					<input id="name" name="name" type="text"
-						class="form-control input-md" value="${userForm.name}">
+						class="form-control input-md" value="${user.name}">
 				</div>
 			</div>
 			<!-- Text input-->
@@ -37,7 +37,7 @@
 				<label class="col-md-4 control-label" for="email"><spring:message code="user.email"/></label>
 				<div class="col-md-4">
 					<input id="email" name="email" type="text"
-						class="form-control input-md" value="${userForm.email}">
+						class="form-control input-md" value="${user.email}">
 
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 				<label class="col-md-4 control-label" for="role"><spring:message code="user.role"/></label>
 				<div class="col-md-4">
 					<input id="role" name="role" type="text"
-						class="form-control input-md" value="${userForm.role}">
+						class="form-control input-md" value="${user.role}">
 
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 				<label class="col-md-4 control-label" for="streetAddress"><spring:message code="address.streetAddress"/></label>
 				<div class="col-md-4">
 					<input id="streetAddress" name="address.streetAddress" type="text"
-						class="form-control input-md" value="${userForm.address.streetAddress}">
+						class="form-control input-md" value="${user.address.streetAddress}">
 
 				</div>
 			</div>

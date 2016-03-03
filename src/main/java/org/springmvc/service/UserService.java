@@ -2,7 +2,7 @@ package org.springmvc.service;
 
 import java.util.List;
 
-import org.springmvc.User;
+import org.springmvc.model.User;
 
 public interface UserService {
     List<User> findAll();

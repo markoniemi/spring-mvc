@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springmvc.User;
+import org.springmvc.model.User;
 import org.springmvc.repository.UserRepository;
 
 import lombok.extern.log4j.Log4j;
